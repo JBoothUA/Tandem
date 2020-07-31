@@ -4,12 +4,18 @@ namespace TandemUserService
 {
     public class TandemUser
     {
-        public DateTime Date { get; set; }
+        public string Id { get; set; }
 
-        public int TemperatureC { get; set; }
+        public string UserId { get; set; }
 
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public string FirstName { get; set; }
 
-        public string Summary { get; set; }
+        public string MiddleName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string EmailAddress { get; set; }
     }
 }

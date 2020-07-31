@@ -7,6 +7,8 @@ namespace TandemUserService.Configuration
 {
     public class UserServiceConfig
     {
-        public string UserDataStoreConnectionString{ get; set; }
+        public string UserDataStoreEndPointUri { get; set; }
+
+        public string UserDataStorePrimaryKey { get; set; }
     }
 }
