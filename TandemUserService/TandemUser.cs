@@ -2,7 +2,7 @@ using System;
 
 namespace TandemUserService
 {
-    public class UserService
+    public class TandemUser
     {
         public DateTime Date { get; set; }
 
