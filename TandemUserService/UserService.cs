@@ -2,7 +2,7 @@ using System;
 
 namespace TandemUserService
 {
-    public class WeatherForecast
+    public class UserService
     {
         public DateTime Date { get; set; }
 
