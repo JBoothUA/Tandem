@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TandemUserService</name>
+    </assembly>
+    <members>
+        <member name="M:TandemUserService.Controllers.UserController.Get(System.String)">
+            <summary>
+            Run a query against the Users container including the value of emailAddress in the WHERE filter
+            </summary>
+        </member>
+        <member name="M:TandemUserService.Controllers.UserController.CreateUser(TandemUserService.TandemUser)">
+            <summary>
+            Add User items to the container
+            </summary>
+        </member>
+    </members>
+</doc>
