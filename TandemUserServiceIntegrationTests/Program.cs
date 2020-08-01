@@ -9,20 +9,20 @@ namespace TandemUserServiceIntegrationTests
     {
         public static readonly HttpClient _client = new HttpClient();
 
-        public static async void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            Console.WriteLine("Tandem user Service Integration Tests! \r\n");
+            Console.WriteLine("Start the Tandem User Service Integration Tests! \r\n");
+            
             //jeb
+            await TestGetUri("https://localhost:11111/api/v1/user/does-not-exist@do-not-add.com");
+            await TestGetUri("https://localhost:11111/api/v1/user/com");
         }
 
         public static async Task TestGetUri(string uri)
         {
             try
             {
-                var response = await _client.GetAsync(uri);
-                response.EnsureSuccessStatusCode();
-                var responseBody = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(responseBody);
+                Console.WriteLine(await _client.GetStringAsync(uri));
             }
             catch (HttpRequestException e)
             {
