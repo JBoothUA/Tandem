@@ -35,7 +35,11 @@ namespace TandemUserService.Controllers
             try
             {
                 var mapConfig = new MapperConfiguration(cfg => {
-                    cfg.CreateMap<TandemUser, TandemUserDto>();
+                    cfg.CreateMap<TandemUser, TandemUserDto>()
+                      .ForMember(dest => dest.UserId,
+                            opts => opts.MapFrom(src => src.Id))
+                      .ForMember(dest => dest.Name,
+                            opts => opts.MapFrom(src => $"{src.FirstName} {src.MiddleName} {src.LastName}"));
                 });
                 _mapper = mapConfig.CreateMapper();
 
@@ -50,32 +54,39 @@ namespace TandemUserService.Controllers
             }
         }
 
+        // GET /api/v1/user/mary@elitechildcare.com
         /// <summary>
-        /// Run a query (using Azure Cosmos DB SQL syntax) against the container
-        /// Including the partition key value of emailAddress in the WHERE filter results in a more efficient query
+        /// Run a query against the Users container including the value of emailAddress in the WHERE filter
         /// </summary>
-        [HttpGet("emailAddress")]
+        [HttpGet]
+        [Route("{emailAddress}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<TandemUserDto>> Get(string emailAddress)
+        public async Task<ActionResult<IEnumerable<TandemUserDto>>> Get(string emailAddress)
         {
             if (string.IsNullOrEmpty(emailAddress))
             {
                 return BadRequest();
             }
             
-            var user = await GetUserByEmailAddress(emailAddress);
-            if (user == null)
+            var users = await GetUsersByEmailAddress(emailAddress);
+            if (users == null || users.Count() == 0)
             {
                 return NotFound();
             }
 
-            return _mapper.Map<TandemUser, TandemUserDto>(user);
+            var tandemUsers = new List<TandemUserDto>();
+            foreach (var user in users)
+            {
+                tandemUsers.Add(_mapper.Map<TandemUser, TandemUserDto>(user));
+            }
+
+            return Ok(tandemUsers);
         }
 
-        private async Task<TandemUser> GetUserByEmailAddress(string emailAddress)
+        private async Task<IEnumerable<TandemUser>> GetUsersByEmailAddress(string emailAddress)
         {
             try
             {
@@ -84,7 +95,7 @@ namespace TandemUserService.Controllers
                 var queryDefinition = new QueryDefinition(sqlQueryText);
                 var queryResultSetIterator = _container.GetItemQueryIterator<TandemUser>(queryDefinition);
                 var currentResultSet = await queryResultSetIterator.ReadNextAsync();
-                return currentResultSet.Resource.Count() > 0 ? currentResultSet.Resource.First() : null;
+                return currentResultSet.Resource != null && currentResultSet.Resource.Count() != 0 ? currentResultSet.Resource : null;
             }
             catch (Exception ex)
             {
@@ -94,6 +105,7 @@ namespace TandemUserService.Controllers
             return null;
         }
 
+        // POST /api/v1/user
         /// <summary>
         /// Add User items to the container
         /// </summary>
@@ -103,13 +115,13 @@ namespace TandemUserService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<TandemUser>> CreateUser([FromBody] TandemUser user)
         {
-            return await AddItemsToContainerAsync(user);
+            return CreatedAtAction(nameof(CreateUser), await AddUserToContainerAsync(user));
         }
 
-        private async Task<TandemUser> AddItemsToContainerAsync(TandemUser user)
+        private async Task<TandemUser> AddUserToContainerAsync(TandemUser user)
         {
-           //jeb user.UserId = Guid.NewGuid();
-            return await _container.CreateItemAsync(user);
+            user.EnsureId();
+            return await _container.CreateItemAsync(user, new PartitionKey(user.EmailAddress));
         }
     }
 }
