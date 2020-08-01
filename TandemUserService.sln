@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TandemUserService", "TandemUserService\TandemUserService.csproj", "{54B94320-8479-4B9D-BD77-ADF5325B7B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TandemUserService", "TandemUserService\TandemUserService.csproj", "{54B94320-8479-4B9D-BD77-ADF5325B7B3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TandemUserServiceIntegrationTests", "TandemUserServiceIntegrationTests\TandemUserServiceIntegrationTests.csproj", "{326A5A48-ABBE-4DDC-BE1B-CE51778C3845}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{54B94320-8479-4B9D-BD77-ADF5325B7B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54B94320-8479-4B9D-BD77-ADF5325B7B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54B94320-8479-4B9D-BD77-ADF5325B7B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{326A5A48-ABBE-4DDC-BE1B-CE51778C3845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{326A5A48-ABBE-4DDC-BE1B-CE51778C3845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{326A5A48-ABBE-4DDC-BE1B-CE51778C3845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{326A5A48-ABBE-4DDC-BE1B-CE51778C3845}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

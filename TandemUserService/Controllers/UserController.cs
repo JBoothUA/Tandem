@@ -54,6 +54,32 @@ namespace TandemUserService.Controllers
             }
         }
 
+        ~UserController()
+        {
+            _cosmosClient.Dispose();
+        }
+
+        // GET /api/v1/user/healthcheck
+        /// <summary>
+        /// Health Check on the Persistent Store Connectivity
+        /// </summary>
+        [HttpGet]
+        [Route("healthcheck")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<string>> HealthCheck()
+        {
+            try
+            {
+                await _cosmosClient.ReadAccountAsync();
+            }
+            catch
+            {
+                return Ok("PROBLEM! - Persistent Store Connectivity Health Check");
+            }
+
+            return Ok("SUCCESS! - Persistent Store Connectivity Health Check");
+        }
+
         // GET /api/v1/user/mary@elitechildcare.com
         /// <summary>
         /// Run a query against the Users container including the value of emailAddress in the WHERE filter
