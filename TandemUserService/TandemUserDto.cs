@@ -4,18 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TandemUserService
 {
-    public class TandemUser
+    public class TandemUserDto
     {
-        //jeb [JsonProperty("id")]
-        //public Guid UserId { get; set; }
+        public Guid UserId { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
-
-        public string MiddleName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
         public string PhoneNumber { get; set; }
 
