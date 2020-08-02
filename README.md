@@ -1,6 +1,6 @@
 # UserService
 
-To run the API and the Integration Tests, please execute the Run.bat file.
+To run the API and the Integration Tests, one option is to execute the Run.bat file.
 
 If there are any issues running the Run.bat file for the first time,
 You might have to first build/run via an Admin - Visual Studio.
