@@ -50,7 +50,7 @@ namespace TandemUserServiceIntegrationTests
             Console.ReadLine();
 
             Console.WriteLine("Attempt to get the user that we created (test@test.com).");
-            Console.WriteLine("Expect a 200 Success with the existing user.");
+            Console.WriteLine("Expect a 200 Success with the existing user(s).");
             await TestGetUri("https://localhost:44360/api/v1/user/test@test.com");
             Console.ReadLine();
         }
