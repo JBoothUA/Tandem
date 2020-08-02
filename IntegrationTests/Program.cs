@@ -59,7 +59,7 @@ namespace TandemUserServiceIntegrationTests
         {
             try
             {
-                Console.WriteLine(await _client.GetStringAsync(uri));
+                Console.WriteLine(await _client.GetStringAsync(uri).ConfigureAwait(false));
             }
             catch (HttpRequestException e)
             {
@@ -73,9 +73,9 @@ namespace TandemUserServiceIntegrationTests
             try
             {
                 var content = new StringContent(user.ToString(), Encoding.UTF8, "application/json");
-                var response = await _client.PostAsync(uri, content);
+                var response = await _client.PostAsync(uri, content).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
-                var responseBody = await response.Content.ReadAsStringAsync();
+                var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 Console.WriteLine(responseBody);
             }
             catch (HttpRequestException e)

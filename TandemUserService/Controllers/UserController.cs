@@ -70,7 +70,7 @@ namespace TandemUserService.Controllers
         {
             try
             {
-                await _cosmosClient.ReadAccountAsync();
+                await _cosmosClient.ReadAccountAsync().ConfigureAwait(false);
             }
             catch
             {
@@ -97,7 +97,7 @@ namespace TandemUserService.Controllers
                 return BadRequest();
             }
             
-            var users = await GetUsersByEmailAddress(emailAddress);
+            var users = await GetUsersByEmailAddressAsync(emailAddress).ConfigureAwait(false);
             if (users == null || users.Count() == 0)
             {
                 return NotFound();
@@ -112,7 +112,7 @@ namespace TandemUserService.Controllers
             return Ok(tandemUsers);
         }
 
-        private async Task<IEnumerable<TandemUser>> GetUsersByEmailAddress(string emailAddress)
+        private async Task<IEnumerable<TandemUser>> GetUsersByEmailAddressAsync(string emailAddress)
         {
             try
             {
@@ -120,7 +120,7 @@ namespace TandemUserService.Controllers
 
                 var queryDefinition = new QueryDefinition(sqlQueryText);
                 var queryResultSetIterator = _container.GetItemQueryIterator<TandemUser>(queryDefinition);
-                var currentResultSet = await queryResultSetIterator.ReadNextAsync();
+                var currentResultSet = await queryResultSetIterator.ReadNextAsync().ConfigureAwait(false);
                 return currentResultSet.Resource != null && currentResultSet.Resource.Count() != 0 ? currentResultSet.Resource : null;
             }
             catch (Exception ex)
@@ -141,13 +141,13 @@ namespace TandemUserService.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<TandemUser>> CreateUser([FromBody] TandemUser user)
         {
-            return CreatedAtAction(nameof(CreateUser), await AddUserToContainerAsync(user));
+            return CreatedAtAction(nameof(CreateUser), await AddUserToContainerAsync(user).ConfigureAwait(false));
         }
 
         private async Task<TandemUser> AddUserToContainerAsync(TandemUser user)
         {
             user.EnsureId();
-            return await _container.CreateItemAsync(user, new PartitionKey(user.EmailAddress));
+            return await _container.CreateItemAsync(user, new PartitionKey(user.EmailAddress)).ConfigureAwait(false);
         }
     }
 }
