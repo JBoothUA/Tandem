@@ -11,6 +11,7 @@ namespace TandemUserService
         [Required]
         public string Name { get; set; }
 
+        [Phone]
         public string PhoneNumber { get; set; }
 
         [Required]

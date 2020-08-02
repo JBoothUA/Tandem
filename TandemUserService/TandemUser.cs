@@ -20,6 +20,7 @@ namespace TandemUserService
         [JsonProperty("lastName")]
         public string LastName { get; set; }
 
+        [Phone]
         [JsonProperty("phoneNumber")]
         public string PhoneNumber { get; set; }
 
