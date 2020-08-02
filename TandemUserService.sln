@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TandemUserService", "TandemUserService\TandemUserService.csproj", "{54B94320-8479-4B9D-BD77-ADF5325B7B3C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "TandemUserServiceIntegrationTests\IntegrationTests.csproj", "{326A5A48-ABBE-4DDC-BE1B-CE51778C3845}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{326A5A48-ABBE-4DDC-BE1B-CE51778C3845}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
