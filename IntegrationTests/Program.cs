@@ -17,7 +17,7 @@ namespace TandemUserServiceIntegrationTests
 
             Console.WriteLine("Attempt a Health Check for the Data Store.");
             Console.WriteLine("Expect a 200 Success with an info message.");
-            await TestGetUri("https://localhost:44360/api/v1/user/test@test.com");
+            await TestGetUri("https://localhost:44360/api/v1/user/healthcheck");
             Console.ReadLine();
 
             Console.WriteLine("Attempt to get a user that doesn't exist.");
