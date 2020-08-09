@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Documents";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data" asp-controller="Home" asp-action="Create">
+            <div class="form-group">
+                <label for="files">Upload a New Document</label>
+                <input class="form-control" id="files" name="files" multiple="multiple" type="file" onchange="form.submit()" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<br />
+<h1>
+    Documents
+</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th>File Size</th>
+            <th>Modified On</th>
+            <th>Download</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model)
+        {
+            <tr>
+                <td>@data.FileName</td>
+                <td>@data.FileSize</td>
+                <td>@data.ModifiedOn</td>
+                <td> <a href="/Home/Download?documentName=@data.FileName">Download</a> </td>
+                <td> <a href="/Home/Delete?documentName=@data.FileName">Delete</a> </td>
+            </tr>
+        }
+    </tbody>
+</table>
